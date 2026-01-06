@@ -1,0 +1,232 @@
+<div class="transfers-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Virements</h1>
+      <p class="security-notice">Effectuez vos virements en toute sécurité</p>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-nav">
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'transfer'"
+      (click)="switchTab('transfer')"
+    >
+      <span class="tab-icon">✈️</span>
+      Nouveau virement
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="activeTab === 'history'"
+      (click)="switchTab('history')"
+    >
+      <span class="tab-icon">📋</span>
+      Historique
+    </button>
+  </div>
+
+  <!-- Transfer Tab -->
+  <div class="tab-content" [class.active]="activeTab === 'transfer'">
+    <div class="transfer-form">
+      <h2 class="form-title">Nouveau Virement</h2>
+      <p class="form-subtitle">Effectuez un virement sécurisé</p>
+
+      <form [formGroup]="transferForm" (ngSubmit)="onSubmitTransfer()">
+        <!-- Account Selection -->
+        <div class="form-group">
+          <label class="form-label">Compte source</label>
+          <select
+            class="form-select"
+            formControlName="sourceAccountId"
+            [class.error]="isFieldInvalid(transferForm, 'sourceAccountId')"
+          >
+            <option value="">Choisir un compte</option>
+            <option *ngFor="let account of accounts" [value]="account.id">
+              {{ account.id }} - {{ account.balance }}
+            </option>
+          </select>
+          <div
+            class="error-message"
+            *ngIf="isFieldInvalid(transferForm, 'sourceAccountId')"
+          >
+            {{ getFieldError(transferForm, "sourceAccountId") }}
+          </div>
+
+          <div
+            class="error-message"
+            *ngIf="isFieldInvalid(transferForm, 'accountId')"
+          >
+            {{ getFieldError(transferForm, "accountId") }}
+          </div>
+        </div>
+
+        <!-- Card Type and Amount Row -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Type de carte</label>
+            <select
+              class="form-select"
+              formControlName="cardType"
+              [class.error]="isFieldInvalid(transferForm, 'cardType')"
+            >
+              <option value="">Choisir le type de carte</option>
+              <option value="VISA">Visa</option>
+              <option value="MASTERCARD">Mastercard</option>
+              <option value="AMERICAN_EXPRESS">American Express</option>
+              <option value="MAESTRO">Maestro</option>
+            </select>
+            <div
+              class="error-message"
+              *ngIf="isFieldInvalid(transferForm, 'cardType')"
+            >
+              {{ getFieldError(transferForm, "cardType") }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Montant</label>
+            <div class="amount-input-container">
+              <input
+                type="number"
+                class="form-input amount-input"
+                formControlName="amount"
+                placeholder="0.00"
+                min="0.01"
+                step="0.01"
+                [class.error]="isFieldInvalid(transferForm, 'amount')"
+              />
+              <span class="currency">EUR</span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="isFieldInvalid(transferForm, 'amount')"
+            >
+              {{ getFieldError(transferForm, "amount") }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Destination Section -->
+        <div class="form-group">
+          <label class="form-label">Compte destinataire (ID)</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="destinationAccountId"
+            placeholder="Ex: 1234567890"
+            [class.error]="isFieldInvalid(transferForm, 'destinationAccountId')"
+          />
+          <div
+            class="error-message"
+            *ngIf="isFieldInvalid(transferForm, 'destinationAccountId')"
+          >
+            {{ getFieldError(transferForm, "destinationAccountId") }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="description"
+            placeholder="Ex: Loyer avril"
+            [class.error]="isFieldInvalid(transferForm, 'description')"
+          />
+          <div
+            class="error-message"
+            *ngIf="isFieldInvalid(transferForm, 'description')"
+          >
+            {{ getFieldError(transferForm, "description") }}
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn-primary"
+            [disabled]="transferForm.invalid || isLoading"
+          >
+            <span *ngIf="!isLoading" class="btn-icon">✈️</span>
+            <span *ngIf="isLoading" class="spinner"></span>
+            {{ isLoading ? "Traitement..." : "Effectuer le virement" }}
+          </button>
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="transferForm.reset()"
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- History Tab -->
+  <div class="tab-content" [class.active]="activeTab === 'history'">
+    <div class="history-header">
+      <h2 class="section-title">Historique des opérations</h2>
+      <div class="history-filters">
+        <!-- Add filters here if needed -->
+      </div>
+    </div>
+
+    <div class="history-table" *ngIf="operations.length > 0 && !isLoading">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Montant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let operation of operations" class="table-row">
+            <td>{{ formatDate(operation.operationDate) }}</td>
+            <td>
+              <div class="operation-info">
+                <div class="operation-description">
+                  {{ operation.description }}
+                </div>
+              </div>
+            </td>
+            <td>
+              <span
+                class="type-badge"
+                [class]="getOperationTypeClass(operation.type)"
+              >
+                {{ getOperationTypeText(operation.type) }}
+              </span>
+            </td>
+            <td>
+              <span
+                [class]="
+                  operation.type === 'DEBIT'
+                    ? 'amount-negative'
+                    : 'amount-positive'
+                "
+              >
+                {{ formatAmount(operation.amount) }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Chargement de l'historique...</p>
+    </div>
+
+    <div class="empty-state" *ngIf="operations.length === 0 && !isLoading">
+      <div class="empty-icon">📋</div>
+      <h3>Aucune opération effectuée</h3>
+      <p>Vos opérations apparaîtront ici une fois effectuées</p>
+    </div>
+  </div>
+</div>

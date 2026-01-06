@@ -1,0 +1,25 @@
+.client-table-card {
+  margin: 2rem;
+  padding: 1.5rem;
+}
+
+.full-width-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background-color: #1976d2;
+  color: white;
+}
+
+.mat-cell, .mat-header-cell {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f5f5f5;
+}

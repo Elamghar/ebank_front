@@ -1,0 +1,16 @@
+<aside class="sidebar">
+  <nav>
+    <a
+      *ngFor="let item of menuItems"
+      [routerLink]="item.path"
+      class="nav-link"
+      [ngClass]="{
+        'active': isActive(item.path),
+        'inactive': !isActive(item.path)
+      }"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span>{{ item.label }}</span>
+    </a>
+  </nav>
+</aside>

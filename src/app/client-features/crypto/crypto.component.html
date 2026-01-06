@@ -1,0 +1,157 @@
+<div class="crypto-dashboard">
+  <!-- Portfolio Section -->
+  <section class="portfolio-section">
+    <div class="portfolio-header">
+      <h2>Portefeuille Crypto</h2>
+      <p>Valeur totale: {{ formatCurrency(portfolioValue) }}</p>
+    </div>
+    
+    <div class="portfolio-holdings" *ngIf="!isLoadingPrices; else portfolioLoading">
+      <div class="holding-card" *ngFor="let holding of holdings">
+        <div class="holding-info">
+          <div class="crypto-name">
+            <span class="symbol">{{ holding.symbol }}</span>
+            <span class="name">{{ holding.name }}</span>
+          </div>
+          <div class="amount">{{ formatCryptoAmount(holding.amount, holding.symbol) }}</div>
+          <div class="price">Prix: {{ formatCurrency(holding.currentPrice) }}</div>
+        </div>
+        <div class="holding-value">
+          <div class="value">{{ formatCurrency(holding.value) }}</div>
+          <div class="change" [ngClass]="getChangeClass(holding.change)">
+            {{ getPriceTrend(holding.change) }} {{ formatPercent(holding.change) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #portfolioLoading>
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Chargement du portefeuille...</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Market Section -->
+  <section class="market-section">
+    <div class="market-header">
+      <h3>Marché des Cryptomonnaies</h3>
+      <div class="market-controls">
+        <p>Prix en temps réel via CoinGecko API</p>
+        <button class="refresh-btn" (click)="refreshMarketData()" [disabled]="isLoadingMarketData">
+          <span class="refresh-icon" [class.spinning]="isLoadingMarketData">↻</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="market-table" *ngIf="!isLoadingMarketData; else marketLoading">
+      <div class="market-item" *ngFor="let crypto of marketData">
+        <div class="crypto-info">
+          <div class="crypto-name">
+            <span class="symbol">{{ crypto.name }} ({{ crypto.symbol }})</span>
+          </div>
+          <div class="volume">Vol: {{ (crypto.volume | number:'1.0-0') }}</div>
+        </div>
+        <div class="price-info">
+          <div class="price">{{ formatCurrency(crypto.price) }}</div>
+          <div class="high-low">
+            <small>H: {{ formatCurrency(crypto.high24h) }} | L: {{ formatCurrency(crypto.low24h) }}</small>
+          </div>
+          <div class="change-info">
+            <span class="change" [ngClass]="getChangeClass(crypto.changePercent)">
+              {{ getPriceTrend(crypto.changePercent) }} {{ formatPercent(crypto.changePercent) }}
+            </span>
+            <span class="period">24h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #marketLoading>
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Chargement des données de marché...</p>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Trading Section -->
+  <section class="trading-section">
+    <div class="trading-header">
+      <h3>Acheter / Vendre Crypto</h3>
+      <p>Prix actuel: {{ formatCurrency(currentPrice) }} 
+        <span class="live-indicator" *ngIf="currentPrice > 0"> LIVE</span>
+      </p>
+    </div>
+    
+    <div class="trading-form">
+      <div class="trade-buttons">
+        <button 
+          class="trade-btn" 
+          [class.active]="tradeType === 'buy'"
+          (click)="tradeType = 'buy'">
+          Acheter
+        </button>
+        <button 
+          class="trade-btn" 
+          [class.active]="tradeType === 'sell'"
+          (click)="tradeType = 'sell'">
+          Vendre
+        </button>
+      </div>
+      
+      <div class="form-group">
+        <label for="crypto-select">Cryptomonnaie</label>
+        <select 
+          id="crypto-select" 
+          [(ngModel)]="selectedCrypto" 
+          (change)="onCryptoChange()"
+          class="form-control">
+          <option *ngFor="let crypto of getAvailableCryptos()" [value]="crypto.symbol">
+            {{ crypto.name }} ({{ crypto.symbol }}) - {{ formatCurrency(crypto.price) }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="amount">Montant en USD</label>
+        <input 
+          type="number" 
+          id="amount"
+          [(ngModel)]="tradeAmount" 
+          class="form-control amount-input"
+          min="1"
+          step="0.01"
+          (input)="onCryptoChange()">
+        <small class="crypto-amount" *ngIf="currentPrice > 0">
+          ≈ {{ formatCryptoAmount(getCryptoAmountForTrade(), selectedCrypto) }}
+        </small>
+      </div>
+      
+      <div class="action-buttons">
+        <button 
+          *ngIf="tradeType === 'buy'" 
+          class="btn btn-primary btn-buy"
+          (click)="onBuy()"
+          [disabled]="currentPrice === 0">
+          Acheter {{ selectedCrypto }}
+        </button>
+        <button 
+          *ngIf="tradeType === 'sell'" 
+          class="btn btn-secondary btn-sell"
+          (click)="onSell()"
+          [disabled]="currentPrice === 0">
+          Vendre {{ selectedCrypto }}
+        </button>
+      </div>
+
+      <div class="trading-info" *ngIf="currentPrice > 0">
+        <small>
+          <strong>Frais estimés:</strong> $2.50 | 
+          <strong>Total:</strong> {{ formatCurrency(tradeAmount + 2.50) }}
+        </small>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,60 @@
+<mat-card>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+    <h2>Inscription d’un nouveau client</h2>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Nom complet</mat-label>
+      <input matInput formControlName="fullName">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Téléphone</mat-label>
+      <input matInput formControlName="phone">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>CIN</mat-label>
+      <input matInput formControlName="cin">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Date de naissance</mat-label>
+      <input matInput type="date" formControlName="dob">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Adresse</mat-label>
+      <textarea matInput formControlName="address"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Type de compte</mat-label>
+      <mat-select formControlName="accountType">
+        <mat-option value="courant">Courant</mat-option>
+        <mat-option value="épargne">Épargne</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Solde initial</mat-label>
+      <input matInput type="number" formControlName="initialBalance">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Confirmation</mat-label>
+      <input matInput type="password" formControlName="confirmPassword">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (onClick)="onSubmit">Créer le client</button>
+  </form>
+</mat-card>

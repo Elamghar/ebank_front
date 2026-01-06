@@ -1,0 +1,320 @@
+.banking-app {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+
+  .content {
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .page-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .refresh-btn {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 0.5rem;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: #b3d7ff;
+        cursor: not-allowed;
+      }
+
+      .icon-refresh {
+        margin-right: 0.5rem;
+
+        &.spinning {
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+
+  .customer-summary {
+    margin-top: 2rem;
+
+    .summary-card {
+      background: #f0f4f8;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+
+      h4 {
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .summary-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+
+        .stat {
+          display: flex;
+          flex-direction: column;
+
+          .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+          }
+
+          .stat-value {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .loading-container,
+  .error-container,
+  .success-container,
+  .no-accounts {
+    text-align: center;
+    margin-top: 2rem;
+
+    .alert {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      display: inline-block;
+
+      &.alert-error {
+        background-color: #ffe6e6;
+        color: #c00;
+      }
+
+      &.alert-success {
+        background-color: #e6ffe6;
+        color: #2e7d32;
+      }
+    }
+
+    .retry-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #ff5252;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .icon-error,
+    .icon-success,
+    .icon-no-accounts {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .tab-navigation {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.75rem;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+
+      &.active {
+        background: #007bff;
+        color: white;
+      }
+    }
+  }
+
+  .profile-section {
+    margin-top: 2rem;
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    .profile-form {
+      margin-top: 1rem;
+
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-weight: 500;
+        }
+
+        .form-control {
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 0.5rem;
+
+          &.error {
+            border-color: #d32f2f;
+          }
+        }
+
+        .input-with-icon {
+          position: relative;
+
+          input {
+            padding-right: 2rem;
+          }
+
+          .icon-verified {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: green;
+          }
+        }
+
+        .field-errors {
+          color: #d32f2f;
+          font-size: 0.85rem;
+          margin-top: 0.25rem;
+        }
+      }
+
+      .form-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 1rem;
+
+        .btn {
+          padding: 0.6rem 1.5rem;
+          border-radius: 0.5rem;
+          font-weight: 500;
+          cursor: pointer;
+
+          &.btn-primary {
+            background: #28a745;
+            color: white;
+            border: none;
+          }
+
+          &.btn-secondary {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  .accounts-section {
+    margin-top: 2rem;
+
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+
+      .account-card {
+        background: #ffffff;
+        border: 1px solid #e0e0e0;
+        padding: 1rem;
+        border-radius: 0.75rem;
+
+        .account-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .account-status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+
+            &.status-active {
+              background-color: #e6ffe6;
+              color: #2e7d32;
+            }
+
+            &.status-inactive {
+              background-color: #fff4e5;
+              color: #d17c00;
+            }
+
+            &.status-closed {
+              background-color: #ffe6e6;
+              color: #c00;
+            }
+          }
+        }
+
+        .account-details {
+          margin-top: 1rem;
+
+          .account-balance {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+          }
+
+          .account-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+
+            span {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Spinner animation
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

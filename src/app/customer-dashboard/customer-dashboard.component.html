@@ -1,0 +1,16 @@
+<app-header></app-header>
+<div class="flex min-h-screen">
+  <app-sidebar></app-sidebar>
+  <main class="flex-1">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="bank-assistant"
+  agent-id="b8abee95-8b62-40ad-9855-f447217bbedf"
+  language-code="fr"
+  chat-icon="https://i.imgur.com/a6nDA9f.png"
+></df-messenger>

@@ -1,0 +1,77 @@
+.sidebar {
+  width: 250px;
+  background-color: #1e40af;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  padding: 20px;
+}
+
+.sidebar-header .sidebar-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.sidebar-header .sidebar-subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.sidebar-menu .menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #1e40af;
+  border: none;
+  color: white;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-menu .menu-item.active {
+  background-color: #3b82f6;
+}
+
+.sidebar-menu .menu-item .menu-icon {
+  margin-right: 10px;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.top-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info .user-avatar {
+  margin-right: 10px;
+}
+
+.form-container mat-card {
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin: 10px 0;
+}
+
+mat-select {
+  width: 100%;
+}
+
+button {
+  margin-top: 20px;
+}

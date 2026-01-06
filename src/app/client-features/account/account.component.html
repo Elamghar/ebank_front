@@ -1,0 +1,260 @@
+<!-- account.component.html (Updated with dynamic data) -->
+<div class="banking-app">
+  <!-- Main Content Area -->
+  <main class="content">
+    <div class="content-header">
+      <h2 class="page-title">Mon Compte</h2>
+      <button class="refresh-btn" (click)="onRefresh()" [disabled]="loading">
+        <i class="icon-refresh" [class.spinning]="loading"></i>
+        Actualiser
+      </button>
+    </div>
+
+    <!-- Customer Info Summary -->
+    <div class="customer-summary" *ngIf="customer && !loading">
+      <div class="summary-card">
+        <h4>Informations du compte</h4>
+        <div class="summary-stats">
+          <div class="stat">
+            <span class="stat-label">Nom complet</span>
+            <span class="stat-value">{{ customer.name }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Email</span>
+            <span class="stat-value">{{ customer.email }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Nombre de comptes</span>
+            <span class="stat-value">{{ totalAccounts }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Solde total</span>
+            <span class="stat-value">{{ totalBalance | currency:'EUR':'symbol':'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <p>Chargement des données...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-container" *ngIf="error && !loading">
+      <div class="alert alert-error">
+        <i class="icon-error"></i>
+        <span>{{ error }}</span>
+        <button class="retry-btn" (click)="onRefresh()">Réessayer</button>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-container" *ngIf="successMessage">
+      <div class="alert alert-success">
+        <i class="icon-success"></i>
+        <span>{{ successMessage }}</span>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-navigation" *ngIf="!loading">
+      <button class="tab-btn active">
+        <i class="icon-user"></i>
+        Profil
+      </button>
+      <button class="tab-btn">
+        <i class="icon-security"></i>
+        Sécurité
+      </button>
+      <button class="tab-btn">
+        <i class="icon-notification"></i>
+        Notifications
+      </button>
+      <button class="tab-btn">
+        <i class="icon-card"></i>
+        Cartes
+      </button>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="profile-section" *ngIf="!loading">
+      <h3 class="section-title">Informations Personnelles</h3>
+      <p class="section-subtitle">
+        Gérez vos informations de profil et vos coordonnées
+      </p>
+
+      <form
+        [formGroup]="profileForm"
+        (ngSubmit)="onSaveChanges()"
+        class="profile-form"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nom complet *</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control"
+              [class.error]="nameErrors.length > 0"
+              placeholder="Entrez votre nom complet"
+            />
+            <div class="field-errors" *ngIf="nameErrors.length > 0">
+              <span class="error-message" *ngFor="let error of nameErrors">{{ error }}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <div class="input-with-icon">
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                [class.error]="emailErrors.length > 0"
+                placeholder="votre.email@exemple.com"
+              />
+              <i class="icon-verified" *ngIf="customer?.email && profileForm.get('email')?.valid"></i>
+            </div>
+            <div class="field-errors" *ngIf="emailErrors.length > 0">
+              <span class="error-message" *ngFor="let error of emailErrors">{{ error }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              class="form-control"
+              placeholder="Changer votre mot de passe"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input
+              type="text"
+              id="phone"
+              formControlName="phone"
+              class="form-control"
+              placeholder="Numéro de téléphone"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="address">Adresse</label>
+            <input
+              type="text"
+              id="address"
+              formControlName="address"
+              class="form-control"
+              placeholder="Adresse postale"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="dateInsc">Date d'inscription</label>
+            <input
+              type="date"
+              id="dateInsc"
+              formControlName="dateInsc"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="iban">IBAN</label>
+            <input
+              type="text"
+              id="iban"
+              formControlName="iban"
+              class="form-control"
+              placeholder="IBAN"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cin">CIN</label>
+            <input
+              type="text"
+              id="cin"
+              formControlName="cin"
+              class="form-control"
+              placeholder="Numéro CIN"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="balance">Solde</label>
+          <input
+            type="number"
+            id="balance"
+            formControlName="balance"
+            class="form-control"
+            placeholder="Solde"
+            min="0"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!profileForm.valid || saving"
+          >
+            <span *ngIf="!saving">Sauvegarder les modifications</span>
+            <span *ngIf="saving">
+              <i class="icon-loading"></i>
+              Sauvegarde en cours...
+            </span>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="onRefresh()"
+            [disabled]="loading || saving"
+          >
+            Annuler les modifications
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Bank Accounts Section -->
+    <div class="accounts-section" *ngIf="hasAccounts && !loading">
+      <h3 class="section-title">Mes Comptes Bancaires</h3>
+      <div class="accounts-grid">
+        <div class="account-card" *ngFor="let account of customer?.bankAccounts">
+          <div class="account-header">
+            <h4>{{ account.type | titlecase }}</h4>
+            <span class="account-status" [class]="'status-' + account.status.toLowerCase()">
+              {{ account.status }}
+            </span>
+          </div>
+          <div class="account-details">
+            <div class="account-balance">
+              {{ account.balance | currency:account.currency:'symbol':'1.2-2' }}
+            </div>
+            <div class="account-info">
+              <span>ID: {{ account.id }}</span>
+              <span>Créé le: {{ account.createdAt | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

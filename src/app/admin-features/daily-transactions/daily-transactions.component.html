@@ -1,0 +1,77 @@
+<!-- daily-transactions.component.html -->
+
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="bg-white shadow-sm border-b border-gray-200">
+    <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+      <div class="px-8 py-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="flex justify-between items-center">
+          <div>
+            <h1 class="text-xl font-bold text-gray-900 mb-2">Transactions du Jour</h1>
+            <p class="text-gray-600 mt-1">Liste complète des transactions effectuées aujourd'hui</p>
+          </div>
+          <!-- <div class="flex items-center space-x-4">
+            <button 
+              (click)="refreshData()" 
+              [disabled]="loading"
+              class="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-4 py-2 rounded-lg transition-colors duration-200 flex items-center space-x-2"
+            >
+              <svg *ngIf="!loading" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+              <svg *ngIf="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>{{ loading ? 'Actualisation...' : 'Actualiser' }}</span>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Loading -->
+    <div *ngIf="loading && !error" class="text-center text-gray-500 py-10">
+      Chargement des transactions...
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-red-800 flex items-center space-x-2">
+      <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+      </svg>
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Transactions Table -->
+    <div *ngIf="!loading && !error && transactions.length > 0" class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm bg-white">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Type d'opération</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Montant</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Compte</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr *ngFor="let t of transactions" class="hover:bg-gray-50 transition-colors duration-150 cursor-pointer">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ t.id }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ t.operationDate | date: 'short' }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ t.type }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ t.amount | currency: 'EUR' }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ t.accountId }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- No Transactions -->
+    <div *ngIf="!loading && !error && transactions.length === 0" class="text-center text-gray-500 mt-8">
+      Aucune transaction aujourd'hui.
+    </div>
+  </div>
+</div>

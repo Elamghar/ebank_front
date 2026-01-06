@@ -1,0 +1,118 @@
+<div class="recharge-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>Recharges</h1>
+    <p class="subtitle">Rechargez vos services en quelques clics</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button 
+      class="tab"
+      [class.active]="activeTab === 'mobile'"
+      (click)="setActiveTab('mobile')">
+      📱 Mobile
+    </button>
+    <button 
+      class="tab"
+      [class.active]="activeTab === 'internet'"
+      (click)="setActiveTab('internet')">
+      📶 Internet
+    </button>
+    <button 
+      class="tab"
+      [class.active]="activeTab === 'transport'"
+      (click)="setActiveTab('transport')">
+      🚌 Transport
+    </button>
+    <button 
+      class="tab"
+      [class.active]="activeTab === 'electricity'"
+      (click)="setActiveTab('electricity')">
+      🏠 Électricité
+    </button>
+  </div>
+
+  <!-- Mobile Recharge Form -->
+  <div class="form-section" *ngIf="activeTab === 'mobile'">
+    <div class="section-header">
+      <h2>📱 Recharge Mobile</h2>
+      <p>Rechargez votre forfait mobile ou celui d'un proche</p>
+    </div>
+
+    <form class="recharge-form">
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label for="phone">Numéro de téléphone</label>
+        <input 
+          type="text" 
+          id="phone"
+          [(ngModel)]="phoneNumber"
+          name="phone"
+          class="form-input"
+          placeholder="06 12 34 56 78">
+      </div>
+
+      <!-- Operator -->
+      <div class="form-group">
+        <label for="operator">Opérateur</label>
+        <select 
+          id="operator"
+          [(ngModel)]="selectedOperator"
+          name="operator"
+          class="form-select">
+          <option value="">Choisir un opérateur</option>
+          <option *ngFor="let op of operators" [value]="op.value">
+            {{op.label}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Amount -->
+      <div class="form-group">
+        <label for="amount">Montant</label>
+        <select 
+          id="amount"
+          [(ngModel)]="selectedAmount"
+          name="amount"
+          class="form-select">
+          <option value="">Choisir un montant</option>
+          <option *ngFor="let amount of amounts" [value]="amount.value">
+            {{amount.label}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Account -->
+      <div class="form-group">
+        <label for="account">Compte à débiter</label>
+        <select 
+          id="account"
+          [(ngModel)]="selectedAccount"
+          name="account"
+          class="form-select">
+          <option value="">Choisir un compte</option>
+          <option *ngFor="let account of accounts" [value]="account.value">
+            {{account.label}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="button" 
+        class="recharge-btn"
+        (click)="onRecharge()">
+        💳 Effectuer la recharge
+      </button>
+    </form>
+  </div>
+
+  <!-- Other tabs content -->
+  <div class="form-section" *ngIf="activeTab !== 'mobile'">
+    <div class="coming-soon">
+      <h3>Bientôt disponible</h3>
+      <p>Cette fonctionnalité sera disponible prochainement.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<aside class="bg-blue-900 text-white w-64 min-h-screen p-4">
+  <nav class="space-y-2">
+    <a
+      *ngFor="let item of menuItems"
+      [routerLink]="item.path"
+      class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors"
+      [ngClass]="{
+        'bg-blue-700 text-white': isActive(item.path),
+        'text-blue-100 hover:bg-blue-800 hover:text-white': !isActive(item.path)
+      }"
+    >
+      <mat-icon class="h-5 w-5">{{ item.icon }}</mat-icon>
+      <span>{{ item.label }}</span>
+    </a>
+  </nav>
+</aside>
+

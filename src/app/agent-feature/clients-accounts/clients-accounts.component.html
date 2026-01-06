@@ -1,0 +1,55 @@
+<mat-card class="p-6 bg-white rounded-xl shadow-lg transition-transform duration-300 hover:scale-[1.02]">
+  <h2 class="text-2xl font-bold mb-4 text-blue-700">Liste des Comptes</h2>
+
+  <!-- Chargement -->
+  <div *ngIf="accounts.length === 0" class="flex items-center space-x-2 text-blue-500 animate-pulse">
+    <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+    </svg>
+    <span class="text-sm font-medium">Chargement des comptes...</span>
+  </div>
+
+  <!-- Tableau des comptes -->
+  <table *ngIf="paginatedAccounts.length > 0" class="min-w-full table-auto border mt-4">
+    <thead class="bg-blue-100">
+      <tr>
+        <th class="px-4 py-2 text-left">ID</th>
+        <th class="px-4 py-2 text-left">Type</th>
+        <th class="px-4 py-2 text-left">Solde</th>
+        <th class="px-4 py-2 text-left">Statut</th>
+        <th class="px-4 py-2 text-left">Agent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of paginatedAccounts" class="hover:bg-blue-50">
+        <td class="px-4 py-2">{{ account.id }}</td>
+        <td class="px-4 py-2">{{ account.type }}</td>
+        <td class="px-4 py-2">{{ account.balance }} MAD</td>
+        <td class="px-4 py-2">{{ account.status }}</td>
+        <td class="px-4 py-2">{{ account.customerDTO.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="totalPages > 1" class="mt-4 flex justify-center items-center space-x-2">
+    <button
+      (click)="goToPage(currentPage - 1)"
+      class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+      [disabled]="currentPage === 1"
+    >
+      Précédent
+    </button>
+
+    <span class="text-gray-700">Page {{ currentPage }} / {{ totalPages }}</span>
+
+    <button
+      (click)="goToPage(currentPage + 1)"
+      class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+      [disabled]="currentPage === totalPages"
+    >
+      Suivant
+    </button>
+  </div>
+</mat-card>

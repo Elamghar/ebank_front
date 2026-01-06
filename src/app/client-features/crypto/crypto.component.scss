@@ -1,0 +1,356 @@
+.crypto-dashboard {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+// Portfolio Section
+.portfolio-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
+  .portfolio-header {
+    margin-bottom: 2rem;
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+
+  .portfolio-holdings {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .holding-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+
+    .holding-info {
+      .crypto-name {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        .symbol {
+          font-weight: 600;
+          color: #333;
+        }
+
+        .name {
+          color: #666;
+          font-size: 0.9rem;
+        }
+      }
+
+      .amount {
+        font-size: 0.85rem;
+        color: #666;
+      }
+    }
+
+    .holding-value {
+      text-align: right;
+
+      .value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.25rem;
+      }
+
+      .change {
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        &.positive-change {
+          color: #28a745;
+        }
+
+        &.negative-change {
+          color: #dc3545;
+        }
+      }
+    }
+  }
+}
+
+// Market Section
+.market-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
+  .market-header {
+    margin-bottom: 2rem;
+
+    h3 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+
+  .market-table {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .market-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #007bff;
+      background-color: #f8f9ff;
+    }
+
+    .crypto-info {
+      .crypto-name .symbol {
+        font-weight: 600;
+        color: #333;
+        font-size: 1rem;
+      }
+    }
+
+    .price-info {
+      text-align: right;
+
+      .price {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.25rem;
+      }
+
+      .change-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: flex-end;
+
+        .change {
+          font-size: 0.85rem;
+          font-weight: 500;
+
+          &.positive-change {
+            color: #28a745;
+          }
+
+          &.negative-change {
+            color: #dc3545;
+          }
+        }
+
+        .period {
+          font-size: 0.75rem;
+          color: #999;
+        }
+      }
+    }
+  }
+}
+
+// Trading Section
+.trading-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+
+  .trading-header {
+    margin-bottom: 2rem;
+
+    h3 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+
+  .trading-form {
+    max-width: 400px;
+
+    .trade-buttons {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e9ecef;
+
+      .trade-btn {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: none;
+        background: #f8f9fa;
+        color: #666;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.active {
+          background: #007bff;
+          color: white;
+        }
+
+        &:hover:not(.active) {
+          background: #e9ecef;
+        }
+      }
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #333;
+        font-size: 0.9rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+          box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+      }
+
+      .amount-input {
+        font-family: 'Courier New', monospace;
+      }
+    }
+
+    .action-buttons {
+      .btn {
+        width: 100%;
+        padding: 1rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.btn-primary {
+          background: #007bff;
+          color: white;
+
+          &:hover {
+            background: #0056b3;
+          }
+        }
+
+        &.btn-secondary {
+          background: #6c757d;
+          color: white;
+
+          &:hover {
+            background: #545b62;
+          }
+        }
+
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .crypto-dashboard {
+    padding: 1rem;
+  }
+
+  .portfolio-section,
+  .market-section,
+  .trading-section {
+    padding: 1.5rem;
+  }
+
+  .holding-card,
+  .market-item {
+    padding: 1rem;
+  }
+
+  .trading-form {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .crypto-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    grid-template-areas: 
+      "portfolio market"
+      "trading trading";
+    align-items: start;
+  }
+
+  .portfolio-section {
+    grid-area: portfolio;
+    margin-bottom: 0;
+  }
+
+  .market-section {
+    grid-area: market;
+    margin-bottom: 0;
+  }
+
+  .trading-section {
+    grid-area: trading;
+  }
+}

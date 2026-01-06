@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramétrage Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Main Card -->
+    <div class="min-h-screen bg-white">
+        <!-- Card Header -->
+        <div class="px-8 py-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+            <h2 class="text-2xl font-bold text-gray-900 mb-1">Paramétrage Global</h2>
+            <p class="text-gray-600">Configuration système</p>
+        </div>
+        
+        <!-- Card Content -->
+        <div class="px-8 py-8 space-y-10 max-w-6xl mx-auto">
+            
+            <!-- Financial Settings -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                    </svg>
+                    Paramètres Financiers
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="space-y-2">
+                        <label for="maxTransfer" class="block text-sm font-medium text-gray-700">
+                            Montant max virement (€)
+                        </label>
+                        <input 
+                            id="maxTransfer"
+                            type="number"
+                            value="50000"
+                            min="1000"
+                            max="1000000"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        <small class="text-gray-500 text-xs">Limite par transaction individuelle</small>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="dailyLimit" class="block text-sm font-medium text-gray-700">
+                            Limite quotidienne (€)
+                        </label>
+                        <input 
+                            id="dailyLimit"
+                            type="number"
+                            value="100000"
+                            min="10000"
+                            max="5000000"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        <small class="text-gray-500 text-xs">Limite par utilisateur par jour</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    Paramètres de Sécurité
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="sessionTimeout" class="block text-sm font-medium text-gray-700">
+                            Timeout session (min)
+                        </label>
+                        <input 
+                            id="sessionTimeout"
+                            type="number"
+                            value="30"
+                            min="5"
+                            max="120"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        <small class="text-gray-500 text-xs">Déconnexion automatique</small>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="auditRetention" class="block text-sm font-medium text-gray-700">
+                            Rétention audit (jours)
+                        </label>
+                        <input 
+                            id="auditRetention"
+                            type="number"
+                            value="90"
+                            min="30"
+                            max="365"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        <small class="text-gray-500 text-xs">Conservation des logs</small>
+                    </div>
+                    
+                    <div class="md:col-span-2 space-y-2">
+                        <div class="flex items-start space-x-3">
+                            <div class="flex items-center h-5">
+                                <input 
+                                    id="twoFactorMandatory"
+                                    type="checkbox"
+                                    checked
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                            </div>
+                            <div class="text-sm">
+                                <label for="twoFactorMandatory" class="font-medium text-gray-700 cursor-pointer">
+                                    2FA obligatoire
+                                </label>
+                                <p class="text-gray-500 text-xs">Authentification à deux facteurs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
+                    </svg>
+                    Notifications
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex items-center h-5">
+                            <input 
+                                id="emailNotifications"
+                                type="checkbox"
+                                checked
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                        </div>
+                        <label for="emailNotifications" class="text-sm font-medium text-gray-700 cursor-pointer">
+                            Notifications Email
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-start space-x-3">
+                        <div class="flex items-center h-5">
+                            <input 
+                                id="smsNotifications"
+                                type="checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                        </div>
+                        <label for="smsNotifications" class="text-sm font-medium text-gray-700 cursor-pointer">
+                            Notifications SMS
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Settings -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    Système
+                </h3>
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex items-center h-5">
+                            <input 
+                                id="maintenanceMode"
+                                type="checkbox"
+                                class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 focus:ring-2">
+                        </div>
+                        <div class="text-sm">
+                            <label for="maintenanceMode" class="font-medium text-gray-700 cursor-pointer">
+                                Mode maintenance
+                            </label>
+                        </div>
+                    </div>
+                    <div id="maintenanceWarning" class="hidden mt-3 p-3 bg-orange-100 border border-orange-200 rounded-lg">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-orange-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <p class="text-orange-800 text-sm font-medium">
+                                Le mode maintenance est activé - Les utilisateurs ne peuvent pas accéder au système
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                <button class="flex-1 sm:flex-none px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-colors duration-200">
+                    Sauvegarder Paramètres
+                </button>
+                <button class="flex-1 sm:flex-none px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 focus:ring-4 focus:ring-gray-200 transition-colors duration-200">
+                    Réinitialiser
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!-- dashboard-home.component.html -->
+<div class="dashboard-home">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1>Bonjour, {{ customer.email }}</h1>
+    <p class="welcome-subtitle">Voici un aperçu de vos comptes</p>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="stats-grid">
+    <div class="stat-card total-balance">
+      <div class="stat-header">
+        <mat-icon>account_balance_wallet</mat-icon>
+        <h3>Solde Total</h3>
+      </div>
+      <div class="stat-value">{{ formatCurrency(balance, '€') }}</div>
+    </div>
+    
+    <div class="stat-card accounts-count">
+      <div class="stat-header">
+        <mat-icon>credit_card</mat-icon>
+        <h3>Comptes</h3>
+      </div>
+      <div class="stat-value">{{ accounts.length }}</div>
+    </div>
+    
+    <div class="stat-card transactions-count">
+      <div class="stat-header">
+        <mat-icon>receipt</mat-icon>
+        <h3>Transactions ce mois</h3>
+      </div>
+      <div class="stat-value">{{ recentTransactions.length }}</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions-section">
+    <h2>Actions Rapides</h2>
+    <div class="quick-actions-grid">
+      <div 
+        *ngFor="let action of quickActions" 
+        class="quick-action-card"
+        [class]="'action-' + action.color"
+        (click)="executeQuickAction(action)">
+        <mat-icon>{{ action.icon }}</mat-icon>
+        <span>{{ action.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accounts Section -->
+  <div class="accounts-section">
+    <div class="section-header">
+      <h2>Mes Comptes</h2>
+      <button class="btn-link" (click)="navigateToAllTransactions()">
+        Voir tous
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    
+    <div class="accounts-grid">
+      <div 
+        *ngFor="let account of accounts" 
+        class="account-card"
+        [class]="'account-' + account.type"
+        (click)="navigateToAccountDetails(account.id)">
+        
+        <div class="account-header">
+          <div class="account-info">
+            <mat-icon>{{ getAccountTypeIcon(account.type) }}</mat-icon>
+            <div>
+              <h3>{{ account.name }}</h3>
+              <p class="account-number">{{ account.accountNumber }}</p>
+            </div>
+          </div>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+        </div>
+        
+        <div class="account-balance">
+          <span class="balance-amount">{{ formatCurrency(account.balance, account.currency) }}</span>
+          <span class="balance-label">Solde disponible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Transactions -->
+  <div class="transactions-section">
+    <div class="section-header">
+      <h2>Transactions Récentes</h2>
+      <button class="btn-link" (click)="navigateToAllTransactions()">
+        Voir toutes
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    
+    <div class="transactions-list">
+      <div 
+        *ngFor="let transaction of recentTransactions" 
+        class="transaction-item"
+        [class.credit]="isPositiveAmount(transaction.amount)"
+        [class.debit]="!isPositiveAmount(transaction.amount)">
+        
+        <div class="transaction-icon">
+          <mat-icon>{{ getTransactionIcon(transaction) }}</mat-icon>
+        </div>
+        
+        <div class="transaction-details">
+          <h4>{{ transaction.description }}</h4>
+          <p class="transaction-meta">
+            <span class="date">{{ formatDate(transaction.date) }}</span>
+            <span class="category" *ngIf="transaction.category">• {{ transaction.category }}</span>
+          </p>
+        </div>
+        
+        <div class="transaction-amount" 
+             [class.positive]="isPositiveAmount(transaction.amount)"
+             [class.negative]="!isPositiveAmount(transaction.amount)">
+          <span class="amount-sign">{{ isPositiveAmount(transaction.amount) ? '+' : '-' }}</span>
+          <span class="amount-value">{{ formatAmount(transaction.amount) }} €</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

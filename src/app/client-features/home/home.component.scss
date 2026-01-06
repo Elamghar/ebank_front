@@ -1,0 +1,543 @@
+// dashboard-home.component.scss
+
+// Variables
+$primary-color: #2563eb;
+$secondary-color: #64748b;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$background-color: #ffffff;
+$card-background: #ffffff;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$border-color: #e2e8f0;
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+$border-radius: 8px;
+$border-radius-lg: 12px;
+
+// Mixins
+@mixin card-style {
+  background: $card-background;
+  border-radius: $border-radius;
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-color;
+  padding: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+@mixin hover-lift {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Main component
+.dashboard-home {
+  padding: 2rem;
+  background: $background-color;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+// Welcome Section
+.welcome-section {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .welcome-subtitle {
+    color: $text-secondary;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+// Stats Grid
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.stat-card {
+  @include card-style;
+  @include hover-lift;
+  cursor: pointer;
+
+  .stat-header {
+    @include flex-between;
+    margin-bottom: 1rem;
+
+    mat-icon {
+      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      color: $secondary-color;
+    }
+
+    h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $text-secondary;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-primary;
+    line-height: 1;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &.total-balance {
+    .stat-header mat-icon {
+      color: $primary-color;
+    }
+    .stat-value {
+      color: $primary-color;
+    }
+  }
+
+  &.accounts-count {
+    .stat-header mat-icon {
+      color: $success-color;
+    }
+  }
+
+  &.transactions-count {
+    .stat-header mat-icon {
+      color: $warning-color;
+    }
+  }
+}
+
+// Quick Actions Section
+.quick-actions-section {
+  margin-bottom: 2.5rem;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-secondary;
+    margin: 0 0 1rem 0;
+  }
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.quick-action-card {
+  @include card-style;
+  @include flex-center;
+  flex-direction: column;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  mat-icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+  }
+
+  &.action-primary {
+    border-color: $primary-color;
+    mat-icon {
+      color: $primary-color;
+    }
+    &:hover {
+      background: rgba($primary-color, 0.05);
+    }
+  }
+
+  &.action-success {
+    border-color: $success-color;
+    mat-icon {
+      color: $success-color;
+    }
+    &:hover {
+      background: rgba($success-color, 0.05);
+    }
+  }
+
+  &.action-warning {
+    border-color: $warning-color;
+    mat-icon {
+      color: $warning-color;
+    }
+    &:hover {
+      background: rgba($warning-color, 0.05);
+    }
+  }
+}
+
+// Section Headers
+.section-header {
+  @include flex-between;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-secondary;
+    margin: 0;
+  }
+
+  .btn-link {
+    @include flex-center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    color: $primary-color;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: $border-radius;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background: rgba($primary-color, 0.1);
+      color: darken($primary-color, 10%);
+    }
+
+    mat-icon {
+      font-size: 1rem;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+}
+
+// Accounts Section
+.accounts-section {
+  margin-bottom: 2.5rem;
+}
+
+.accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.account-card {
+  @include card-style;
+  @include hover-lift;
+  cursor: pointer;
+
+  .account-header {
+    @include flex-between;
+    margin-bottom: 1rem;
+
+    .account-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      mat-icon {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        color: $primary-color;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0 0 0.25rem 0;
+      }
+
+      .account-number {
+        font-size: 0.75rem;
+        color: $text-secondary;
+        margin: 0;
+        font-family: "Courier New", monospace;
+      }
+    }
+
+    .chevron {
+      color: $text-secondary;
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  .account-balance {
+    text-align: right;
+
+    .balance-amount {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-primary;
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+
+    .balance-label {
+      font-size: 0.75rem;
+      color: $text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  // Account type specific styling
+  &.account-checking {
+    border-left: 4px solid $primary-color;
+  }
+
+  &.account-savings {
+    border-left: 4px solid $success-color;
+  }
+
+  &.account-credit {
+    border-left: 4px solid $warning-color;
+  }
+}
+
+// Transactions Section
+.transactions-section {
+  margin-bottom: 2rem;
+}
+
+.transactions-list {
+  @include card-style;
+  padding: 0;
+  border-radius: $border-radius-lg;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+  transition: background-color 0.2s ease-in-out;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba($primary-color, 0.02);
+  }
+
+  .transaction-icon {
+    @include flex-center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba($secondary-color, 0.1);
+    flex-shrink: 0;
+
+    mat-icon {
+      font-size: 1.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: $secondary-color;
+    }
+  }
+
+  .transaction-details {
+    flex: 1;
+    min-width: 0;
+
+    h4 {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $text-primary;
+      margin: 0 0 0.25rem 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .transaction-meta {
+      font-size: 0.75rem;
+      color: $text-secondary;
+      margin: 0;
+
+      .date {
+        font-weight: 500;
+      }
+
+      .category {
+        margin-left: 0.25rem;
+      }
+    }
+  }
+
+  .transaction-amount {
+    text-align: right;
+    font-weight: 600;
+    flex-shrink: 0;
+
+    .amount-sign {
+      font-size: 0.875rem;
+    }
+
+    .amount-value {
+      font-size: 1rem;
+    }
+
+    &.positive {
+      color: $success-color;
+    }
+
+    &.negative {
+      color: $danger-color;
+    }
+  }
+
+  // Transaction type specific styling
+  &.credit {
+    .transaction-icon {
+      background: rgba($success-color, 0.1);
+      mat-icon {
+        color: $success-color;
+      }
+    }
+  }
+
+  &.debit {
+    .transaction-icon {
+      background: rgba($danger-color, 0.1);
+      mat-icon {
+        color: $danger-color;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .dashboard-home {
+    padding: 1.5rem;
+  }
+
+  .accounts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .transaction-item {
+    padding: 0.75rem 1rem;
+
+    .transaction-details h4 {
+      font-size: 0.8rem;
+    }
+
+    .transaction-amount {
+      .amount-value {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+// Dark mode support (if needed)
+@media (prefers-color-scheme: dark) {
+  .dashboard-home {
+    background: #ffffff; // Keep white background even in dark mode
+  }
+
+  .stat-card,
+  .quick-action-card,
+  .account-card,
+  .transactions-list {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+  }
+
+  h1,
+  h2,
+  .welcome-subtitle {
+    color: #000000 !important;
+  }
+
+  h3,
+  h4 {
+    color: #f1f5f9 !important;
+  }
+
+  .transaction-meta,
+  .balance-label {
+    color: #94a3b8 !important;
+  }
+}

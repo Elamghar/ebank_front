@@ -1,0 +1,48 @@
+/* Updated app.component.html layout styles */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rem; /* Adjust this to match your header height */
+  z-index: 1000; /* Header stays on top */
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-content {
+  display: flex;
+  margin-top: 4rem; /* Push content below fixed header */
+  min-height: calc(100vh - 4rem);
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: 16rem; /* Account for sidebar width */
+  padding: 1.5rem;
+  background: #f8fafc;
+  transition: margin-left 0.3s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    height: 3.5rem;
+  }
+  
+  .dashboard-content {
+    padding-top: 3.5rem;
+    min-height: calc(100vh - 3.5rem);
+  }
+  
+  .dashboard-main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}
